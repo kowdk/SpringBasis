@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 一次切面的定义 -->
+<beans 
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+	<!-- 需要在目标空间中配置aop和它的location、schema -->
+	
+	<aop:aspectj-autoproxy/> <!-- 自动将使用了注解的切面织入到目标bean中 -->
+	<bean id="waiter" class="com.xutao.aspectJ.NaiveWaiter"></bean> <!-- 目标bean -->
+	<bean class="com.xutao.aspectJ.PreGreetingAspect"></bean> <!-- 切面定义的类 -->
+
+
+</beans>
