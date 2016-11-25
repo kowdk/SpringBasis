@@ -22,7 +22,29 @@
        <bean id="greetingAdvice" class="com.xutao.aop.GreetingBeforeAdvice"></bean>
        
        <!-- 注册切面并织入增强 -->
-       <bean id="greetingAdvisor" class="com.xutao.aop.GreetingAdvisor" p:advice-ref="greetingAdvice"></bean>
+       <!-- <bean id="greetingAdvisor" class="com.xutao.aop.GreetingAdvisor" p:advice-ref="greetingAdvice"></bean> -->
+       
+       <!-- 使用正则表达式注册切面 -->
+       <!-- <bean id="greetingAdvisor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor"
+       		p:advice-ref="greetingAdvice">
+			<property name="patterns">
+				<list>
+					<value>.*greet.*</value>
+				</list>
+			</property>      		
+       	</bean> -->
+       
+       <!-- 注册动态切面 -->
+       <bean id="greetingAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+            <!-- pointcut和advice都是约定名，不能改动 -->
+       		<property name="pointcut">
+       			<bean class="com.xutao.aop.GreetingDynamicAdvisor"></bean>
+       		</property>
+       		<property name="advice">
+       			<bean class="com.xutao.aop.GreetingBeforeAdvice"></bean>
+       		</property>
+       	</bean>
+       
        
        <!-- 为所有代理注册一个父类代理 -->
        <bean id="parentProxy" abstract="true" 

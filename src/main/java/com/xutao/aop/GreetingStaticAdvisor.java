@@ -10,7 +10,7 @@ import org.springframework.aop.support.StaticMethodMatcherPointcutAdvisor;
  * @author xutao
  *
  */
-public class GreetingAdvisor extends StaticMethodMatcherPointcutAdvisor{
+public class GreetingStaticAdvisor extends StaticMethodMatcherPointcutAdvisor{
 
 	private static final long serialVersionUID = -8427788701441682638L;
 

@@ -16,7 +16,8 @@ public class GreetingBeforeAdvice implements MethodBeforeAdvice{
 	 */
 	@Override
 	public void before(Method method, Object[] args, Object target) throws Throwable {
-		System.out.println(target.getClass().getName() + "." + method.getName());
+		//System.out.println(target.getClass().getName() + "." + method.getName());
+		System.out.println("MethodBeforeAdvice...");
 		for(Object obj : args) {
 			System.out.println("How are you, Mr. " + obj);
 		}
