@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 一次切面的定义 -->
+<beans 
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+       
+       <!-- 注册连接点所在类 -->
+       <bean id="waiterTarget" class="com.xutao.aop.Waiter"></bean>
+       <bean id="sellerTarget" class="com.xutao.aop.Seller"></bean>
+       
+       <!-- 注册增强类 -->
+       <bean id="greetingAdvice" class="com.xutao.aop.GreetingBeforeAdvice"></bean>
+       
+       <!-- 注册切面并织入增强 -->
+       <bean id="greetingAdvisor" class="com.xutao.aop.GreetingAdvisor" p:advice-ref="greetingAdvice"></bean>
+       
+       <!-- 为所有代理注册一个父类代理 -->
+       <bean id="parentProxy" abstract="true" 
+       		class="org.springframework.aop.framework.ProxyFactoryBean"
+       		p:interceptorNames="greetingAdvisor"
+       		p:proxyTargetClass="true"
+       ></bean>
+       
+       <!-- 代理类 -->
+       <bean id="waiter" parent="parentProxy" p:target-ref="waiterTarget"></bean>
+       <bean id="seller" parent="parentProxy" p:target-ref="sellerTarget"></bean>
+       
+ </beans>
